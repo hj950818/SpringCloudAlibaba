@@ -1,0 +1,16 @@
+package com.hj.springcloud.alibaba.controller;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+public class TestController {
+
+    @Value("${server.port}")
+    private String serverPort;
+
+    @GetMapping(value = "/payment/nacos/{id}")
+    public String getPayment(@PathVariable("id") Integer id){
+        return "nacos"+"------"+serverPort+"-----"+id;
+    }
+}
