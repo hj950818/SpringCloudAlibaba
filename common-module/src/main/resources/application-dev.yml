@@ -1,0 +1,5 @@
+server:
+    port: 9898
+#Swagger lock
+swagger2:
+    enable: true

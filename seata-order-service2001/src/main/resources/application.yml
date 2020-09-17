@@ -1,0 +1,57 @@
+server:
+  port: 2001
+spring:
+  application:
+    name: seata-order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.237.129:8088
+    sentinel:
+      transport:
+        #        配置sentinel dashboard地址
+        #        dashboard: localhost:8080
+        #        默认8719端口，加入被占用会自动从8719开始一次＋1扫描，知道找到未被占用的端口
+        port: 8719
+        dashboard: localhost:8080
+      datasource:
+        ds1:
+          nacos:
+            server-addr: 192.168.237.129:8088
+            dataId: seata-order-service
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+    alibaba:
+      seata:
+        #对应seata.conf 里面的seata-server
+        tx-service-group: fsp_tx_group
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.237.129:3306/seata_order?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#使用feign调用
+feign:
+  sentinel:
+    enabled: true
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+
+swagger:
+  groupName: order
+  basePackage: com.alibaba.order.controller
+  title: 订单模块
+seata:
+  client:
+    support:
+      spring:
+        datasource-autoproxy: false
+

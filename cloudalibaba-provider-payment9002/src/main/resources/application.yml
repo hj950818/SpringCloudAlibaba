@@ -7,7 +7,8 @@ spring:
   #    注入端口
   cloud:
     nacos:
-      server-addr: http://localhost:8848
+      discovery:
+        server-addr: http://192.168.237.129:8088/
 
 #    #监控的目录
 management:
